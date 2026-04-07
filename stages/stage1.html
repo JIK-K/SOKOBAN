@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PushBlox — Stage 1 · Gateway</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="game-header">
+    <a href="../index.html" class="logo-link">
+      <div class="logo-title">PUSHBLOX</div>
+      <div class="logo-sub">Grid Puzzle</div>
+    </a>
+    <div class="stage-badge">STAGE 01 · GATEWAY</div>
+  </header>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-box">
+      <div class="stat-label">이동 횟수</div>
+      <div class="stat-value" id="movesCount">0</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">경과 시간</div>
+      <div class="stat-value" id="timeCount">0:00</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">최고 기록</div>
+      <div class="stat-value" id="bestCount">--</div>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid-wrapper">
+    <div class="grid-game" id="gridGame"></div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls-section">
+    <div class="dpad">
+      <button class="dpad-btn" data-dir="up">↑</button>
+      <button class="dpad-btn" data-dir="left">←</button>
+      <button class="dpad-btn" data-dir="right">→</button>
+      <button class="dpad-btn" data-dir="down">↓</button>
+    </div>
+    <div class="action-btns">
+      <button class="btn btn-reset" onclick="game.reset()">↺ 리셋 (R)</button>
+      <button class="btn btn-hint" onclick="toggleInstructions()">? 도움말</button>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <details class="instructions" id="instrDetails">
+    <summary>게임 방법</summary>
+    <ol>
+      <li>모든 <span class="g">초록 블록</span>을 <span class="b">파란 칸</span> 위에 올려놓으면 클리어!</li>
+      <li><span class="r">빨간 공</span>으로 <span class="g">초록 블록</span>을 밀 수 있다.</li>
+      <li><span class="g">초록 블록</span>은 <span class="w">흰 벽</span>이나 다른 블록으로는 이동 불가.</li>
+    </ol>
+  </details>
+
+  <!-- Stage nav -->
+  <nav class="stage-nav">
+    <span class="stage-link active">Stage 1</span>
+    <a href="stage2.html" class="stage-link">Stage 2</a>
+    <a href="stage3.html" class="stage-link">Stage 3</a>
+    <a href="stage4.html" class="stage-link">Stage 4</a>
+    <a href="stage5.html" class="stage-link">Stage 5</a>
+  </nav>
+
+</div>
+
+<!-- Clear overlay -->
+<div class="clear-overlay" id="clearOverlay">
+  <div class="clear-card">
+    <div class="clear-emoji">🎉</div>
+    <div class="clear-title">STAGE CLEAR!</div>
+    <div class="clear-moves">이동 <span id="clearMoves">0</span>회 · <span id="clearTime">0:00</span></div>
+    <div class="clear-btns">
+      <button class="btn btn-reset btn-next" onclick="game.reset()" style="background:var(--surface);color:var(--red);border:1px solid var(--red);">↺ 다시하기</button>
+      <a href="stage2.html" class="btn-next">다음 스테이지 →</a>
+    </div>
+  </div>
+</div>
+
+<script src="../js/game.js"></script>
+<script>
+const game = new PushBlox({
+  stageId: 1,
+  rows: 11, cols: 19,
+  whitePositions: [
+    ...Array.from({length:19},(_,i)=>[1,i+1]),
+    ...Array.from({length:5},(_,i)=>[2,i+1]),
+    ...Array.from({length:11},(_,i)=>[2,i+9]),
+    ...Array.from({length:5},(_,i)=>[3,i+1]),
+    ...Array.from({length:11},(_,i)=>[3,i+9]),
+    ...Array.from({length:5},(_,i)=>[4,i+1]),
+    ...Array.from({length:11},(_,i)=>[4,i+9]),
+    ...Array.from({length:3},(_,i)=>[5,i+1]),
+    ...Array.from({length:10},(_,i)=>[5,i+10]),
+    ...Array.from({length:3},(_,i)=>[6,i+1]),
+    ...Array.from({length:10},(_,i)=>[6,i+10]),
+    [6,5],[6,7],[6,8],
+    [7,1],[7,5],[7,7],[7,8],[7,10],[7,11],[7,12],[7,13],[7,14],[7,19],
+    [8,1],[8,19],
+    ...Array.from({length:5},(_,i)=>[9,i+1]),
+    [9,7],[9,8],[9,9],[9,11],[9,13],[9,14],[9,19],
+    ...Array.from({length:5},(_,i)=>[10,i+1]),
+    ...Array.from({length:9},(_,i)=>[10,i+11]),
+    ...Array.from({length:19},(_,i)=>[11,i+1]),
+  ],
+  bluePositions: [[7,17],[7,18],[8,17],[8,18],[9,17],[9,18]],
+  greenPositions: [[3,6],[4,8],[5,6],[5,8],[8,3],[8,6]],
+  redStart: [9,12],
+});
+
+function toggleInstructions() {
+  const d = document.getElementById('instrDetails');
+  d.open = !d.open;
+}
+</script>
+</body>
+</html>
