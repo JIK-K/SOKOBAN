@@ -1,0 +1,219 @@
+/* ══════════════════════════════════════════════
+   index.css
+   메인 허브(index.html) 전용 스타일
+   스테이지 선택 카드 / 히어로 / 설명 등
+   ══════════════════════════════════════════════ */
+
+/* ── 인덱스 페이지 전용 body ── */
+body.index-body {
+  overflow-y: auto;
+  /* 배경 격자 패턴 */
+  background-image:
+    linear-gradient(rgba(0, 245, 160, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 160, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── 페이지 래퍼 ── */
+.index-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 16px 60px;
+}
+
+/* ─────────────── HERO ─────────────── */
+.hero {
+  text-align: center;
+  padding: 48px 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 10vw, 88px);
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: var(--accent);
+  text-shadow:
+    0 0 40px rgba(0, 245, 160, 0.6),
+    0 0 100px rgba(0, 245, 160, 0.2);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+/* ─────────────── STAGE GRID ─────────────── */
+.stage-grid {
+  width: 100%;
+  max-width: 740px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+/* ── 스테이지 카드 ── */
+.stage-card {
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition:
+    border-color 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 상단 그라디언트 바 (hover 시 등장) */
+.stage-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.stage-card:hover {
+  border-color: rgba(0, 245, 160, 0.4);
+  transform: translateY(-5px);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 245, 160, 0.08);
+}
+
+.stage-card:hover::before {
+  transform: scaleX(1);
+}
+
+.stage-card-num {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stage-card-info {
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  gap: 12px;
+}
+
+/* ── 난이도 점 ── */
+.difficulty {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.dot.on {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* ── 클리어 뱃지 ── */
+.cleared-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ─────────────── HOW TO PLAY ─────────────── */
+.how-to-play {
+  width: 100%;
+  max-width: 740px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin-bottom: 24px;
+}
+
+.how-to-play summary {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.how-to-play summary::marker,
+.how-to-play summary::-webkit-details-marker {
+  display: none;
+}
+
+.how-to-play ol {
+  margin-top: 14px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.how-to-play li {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.how-to-play .c-red {
+  color: var(--red);
+  font-weight: 700;
+}
+.how-to-play .c-green {
+  color: var(--green);
+  font-weight: 700;
+}
+.how-to-play .c-blue {
+  color: var(--blue);
+  font-weight: 700;
+}
+.how-to-play .c-white {
+  color: var(--white-cell);
+  font-weight: 700;
+}
+
+.how-to-play kbd {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  color: var(--text);
+}
+
+/* ─────────────── 반응형 ─────────────── */
+@media (max-width: 480px) {
+  .hero-logo {
+    letter-spacing: 4px;
+  }
+  .stage-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .stage-card {
+    padding: 18px 14px;
+  }
+  .stage-card-name {
+    font-size: 14px;
+  }
+}

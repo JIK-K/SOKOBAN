@@ -1,0 +1,67 @@
+/* ══════════════════════════════════════════════
+   base.css
+   CSS 변수 / 리셋 / body 기반 설정
+   ══════════════════════════════════════════════ */
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;700&display=swap");
+
+/* ── CSS 변수 ── */
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1c1c28;
+  --border: #2a2a40;
+  --accent: #00f5a0;
+  --accent2: #00d4ff;
+  --red: #ff3366;
+  --blue: #1a6cff;
+  --green: #00c853;
+  --white-cell: #d0d0e0;
+  --text: #e0e0f0;
+  --text-dim: #b7b7c2;
+
+  --glow-green: 0 0 20px rgba(0, 245, 160, 0.4);
+  --glow-red: 0 0 20px rgba(255, 51, 102, 0.5);
+  --glow-blue: 0 0 20px rgba(26, 108, 255, 0.4);
+
+  --font-display: "Orbitron", monospace;
+  --font-body: "Noto Sans KR", sans-serif;
+}
+
+/* ── 리셋 ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 24px;
+}
+
+/* ── 스캔라인 오버레이 (게임 분위기용) ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.025) 2px,
+    rgba(0, 0, 0, 0.025) 4px
+  );
+  pointer-events: none;
+  z-index: 50;
+}

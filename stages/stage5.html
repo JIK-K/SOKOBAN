@@ -1,104 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PushBlox — Stage 5 · Nexus</title>
-  <link rel="stylesheet" href="../css/style.css" />
-</head>
-<body>
-<div class="page">
-  <header class="game-header">
-    <a href="../index.html" class="logo-link">
-      <div class="logo-title">PUSHBLOX</div>
-      <div class="logo-sub">Grid Puzzle</div>
-    </a>
-    <div class="stage-badge">STAGE 05 · NEXUS</div>
-  </header>
-
-  <div class="stats-bar">
-    <div class="stat-box"><div class="stat-label">이동 횟수</div><div class="stat-value" id="movesCount">0</div></div>
-    <div class="stat-box"><div class="stat-label">경과 시간</div><div class="stat-value" id="timeCount">0:00</div></div>
-    <div class="stat-box"><div class="stat-label">최고 기록</div><div class="stat-value" id="bestCount">--</div></div>
-  </div>
-
-  <div class="grid-wrapper">
-    <div class="grid-game" id="gridGame"></div>
-  </div>
-
-  <div class="controls-section">
-    <div class="dpad">
-      <button class="dpad-btn" data-dir="up">↑</button>
-      <button class="dpad-btn" data-dir="left">←</button>
-      <button class="dpad-btn" data-dir="right">→</button>
-      <button class="dpad-btn" data-dir="down">↓</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOKOBAN 3D — Stage 3 · Micro</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/hud.css" />
+  </head>
+  <body>
+    <header class="game-header">
+      <a href="../index.html" class="logo-link"
+        ><div class="logo-title">SOKOBAN</div>
+        <div class="logo-sub">3D Grid Puzzle</div></a
+      >
+      <div class="stage-badge">STAGE 03</div>
+    </header>
+    <div class="stats-bar">
+      <div class="stat-box">
+        <div class="stat-label">이동</div>
+        <div class="stat-value" id="movesCount">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">시간</div>
+        <div class="stat-value" id="timeCount">0:00</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">최고</div>
+        <div class="stat-value" id="bestCount">--</div>
+      </div>
     </div>
-    <div class="action-btns">
-      <button class="btn btn-reset" onclick="game.reset()">↺ 리셋 (R)</button>
-      <button class="btn btn-hint" onclick="toggleInstructions()">? 도움말</button>
+    <nav class="stage-nav">
+      <a href="stage1.html" class="stage-link">S1</a>
+      <a href="stage2.html" class="stage-link">S2</a>
+      <a href="stage3.html" class="stage-link">S3</a>
+      <a href="stage4.html" class="stage-link">S4</a>
+      <span class="stage-link active">S5</span>
+    </nav>
+    <div id="canvasWrap">
+      <canvas id="gameCanvas"></canvas>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot red"></div>
+          플레이어
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot green"></div>
+          블록
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot blue"></div>
+          목표칸
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot white"></div>
+          벽
+        </div>
+      </div>
+      <div class="keys-hint">
+        <kbd>↑↓←→</kbd> / <kbd>WASD</kbd> 이동<br /><kbd>R</kbd> 리셋 ·
+        <kbd>V</kbd> 시점 초기화
+      </div>
+
+      <div class="hud">
+        <div class="action-btns">
+          <button class="btn btn-reset" onclick="game.reset()">리셋</button>
+          <button
+            class="btn btn-reset"
+            style="
+              color: var(--accent2);
+              border-color: rgba(0, 212, 255, 0.3);
+              background: rgba(0, 212, 255, 0.08);
+            "
+            onclick="game.orbit.resetView()"
+          >
+            시점
+          </button>
+        </div>
+        <div class="dpad">
+          <button class="dpad-btn" data-dir="up">↑</button>
+          <button class="dpad-btn" data-dir="left">←</button>
+          <button class="dpad-btn" data-dir="right">→</button>
+          <button class="dpad-btn" data-dir="down">↓</button>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <details class="instructions" id="instrDetails">
-    <summary>게임 방법</summary>
-    <ol>
-      <li>모든 <span class="g">초록 블록</span>을 <span class="b">파란 칸</span> 위에 올려놓으면 클리어!</li>
-      <li><span class="r">빨간 공</span>으로 <span class="g">초록 블록</span>을 밀 수 있다.</li>
-      <li><span class="g">초록 블록</span>은 <span class="w">흰 벽</span>이나 다른 블록으로는 이동 불가.</li>
-    </ol>
-  </details>
-
-  <nav class="stage-nav">
-    <a href="stage1.html" class="stage-link">Stage 1</a>
-    <a href="stage2.html" class="stage-link">Stage 2</a>
-    <a href="stage3.html" class="stage-link">Stage 3</a>
-    <a href="stage4.html" class="stage-link">Stage 4</a>
-    <span class="stage-link active">Stage 5</span>
-  </nav>
-</div>
-
-<div class="clear-overlay" id="clearOverlay">
-  <div class="clear-card">
-    <div class="clear-emoji">🏆</div>
-    <div class="clear-title">ALL CLEAR!</div>
-    <div class="clear-moves">이동 <span id="clearMoves">0</span>회 · <span id="clearTime">0:00</span></div>
-    <div class="clear-btns">
-      <button class="btn btn-reset btn-next" onclick="game.reset()" style="background:var(--surface);color:var(--red);border:1px solid var(--red);">↺ 다시하기</button>
-      <a href="../index.html" class="btn-next">🏠 메인으로</a>
+    <div class="clear-overlay" id="clearOverlay">
+      <div class="clear-card">
+        <div class="clear-emoji">🎉</div>
+        <div class="clear-title">STAGE CLEAR!</div>
+        <div class="clear-moves">
+          이동 <span id="clearMoves">0</span>회 ·
+          <span id="clearTime">0:00</span>
+        </div>
+        <div class="clear-btns">
+          <button
+            class="btn btn-reset"
+            onclick="game.reset()"
+            style="padding: 14px 24px; font-size: 11px"
+          >
+            ↺ 다시하기
+          </button>
+          <a href="stage4.html" class="btn-next">다음 스테이지 →</a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-<script src="../js/game.js"></script>
-<script>
-const game = new PushBlox({
-  stageId: 5,
-  rows: 8, cols: 11,
-  whitePositions: [
-    ...Array.from({length:11},(_,i)=>[1,i+1]),
-    ...Array.from({length:2},(_,i)=>[2,i+1]),
-    ...Array.from({length:6},(_,i)=>[2,i+6]),
-    [3,1],[3,11],[4,1],[4,5],[4,11],
-    [5,1],[5,2],[5,11],
-    [6,1],[6,2],[6,3],[6,8],[6,11],
-    ...Array.from({length:4},(_,i)=>[7,i+1]),
-    [7,7],[7,8],[7,11],
-    ...Array.from({length:11},(_,i)=>[8,i+1]),
-  ],
-  bluePositions: [
-    [4,6],[4,7],[4,8],[4,9],[4,10],
-    [5,7],[5,10],[6,5],[6,6],[6,7],
-  ],
-  greenPositions: [
-    [3,3],[3,5],[3,9],[4,4],[4,7],[4,9],[5,7],[5,9],[6,5],
-  ],
-  redStart: [6,10],
-});
-
-function toggleInstructions() {
-  const d = document.getElementById('instrDetails');
-  d.open = !d.open;
-}
-</script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../js/constants.js"></script>
+    <script src="../js/scene.js"></script>
+    <script src="../js/orbit.js"></script>
+    <script src="../js/input.js"></script>
+    <script src="../js/game3d.js"></script>
+    <script>
+      const game = new SOKOBAN3D({
+        stageId: 3,
+        rows: 6,
+        cols: 6,
+        whitePositions: [
+          [1, 1],
+          [1, 2],
+          [1, 5],
+          [1, 6],
+          [2, 1],
+          [2, 2],
+          [2, 6],
+          [4, 2],
+          [5, 4],
+          [5, 6],
+          [6, 1],
+          [6, 2],
+          [6, 6],
+        ],
+        bluePositions: [
+          [2, 4],
+          [3, 1],
+          [3, 4],
+          [3, 5],
+        ],
+        greenPositions: [
+          [3, 2],
+          [3, 3],
+          [5, 3],
+          [5, 5],
+        ],
+        redStart: [6, 4],
+      });
+    </script>
+  </body>
 </html>

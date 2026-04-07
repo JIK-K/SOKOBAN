@@ -1,113 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="PushBlox - HTML5 격자 퍼즐 게임. 빨간 공을 조종해 초록 블록을 파란 칸에 올려놓아라." />
-  <title>PushBlox — Grid Puzzle</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-<div class="page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SOKOBAN 3D — HTML5 Three.js 기반 3D 격자 퍼즐 게임"
+    />
+    <title>SOKOBAN 3D</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body class="index-body">
+    <div class="index-page">
+      <div class="hero">SOKOBAN</div>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-logo">PUSHBLOX</div>
-    <div class="hero-tagline">Grid Puzzle · Push · Solve · Clear</div>
-  </section>
-
-  <!-- Stage cards -->
-  <div class="stage-grid" id="stageGrid">
-
-    <a href="stages/stage1.html" class="stage-card">
-      <div class="cleared-badge" data-stage="1"></div>
-      <div class="stage-card-num">STAGE 01</div>
-      <div class="stage-card-name">GATEWAY</div>
-      <div class="stage-card-info">
-        <span>🟩 6블록</span>
-        <span>🔵 6목표</span>
+      <div class="stage-grid">
+        <a href="stages/stage1.html" class="stage-card">
+          <div class="cleared-badge" data-stage="1"></div>
+          <div class="stage-card-num">STAGE 01</div>
+          <div class="stage-card-info">
+            <span>🟩 3블록</span><span>🔵 3목표</span>
+          </div>
+          <div class="difficulty">
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </a>
+        <a href="stages/stage2.html" class="stage-card">
+          <div class="cleared-badge" data-stage="2"></div>
+          <div class="stage-card-num">STAGE 02</div>
+          <div class="stage-card-info">
+            <span>🟩 10블록</span><span>🔵 10목표</span>
+          </div>
+          <div class="difficulty">
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </a>
+        <a href="stages/stage3.html" class="stage-card">
+          <div class="cleared-badge" data-stage="3"></div>
+          <div class="stage-card-num">STAGE 03</div>
+          <div class="stage-card-info">
+            <span>🟩 5블록</span><span>🔵 5목표</span>
+          </div>
+          <div class="difficulty">
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot"></div>
+          </div>
+        </a>
+        <a href="stages/stage4.html" class="stage-card">
+          <div class="cleared-badge" data-stage="4"></div>
+          <div class="stage-card-num">STAGE 04</div>
+          <div class="stage-card-info">
+            <span>🟩 5블록</span><span>🔵 5목표</span>
+          </div>
+          <div class="difficulty">
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot"></div>
+          </div>
+        </a>
+        <a href="stages/stage5.html" class="stage-card">
+          <div class="cleared-badge" data-stage="5"></div>
+          <div class="stage-card-num">STAGE 05</div>
+          <div class="stage-card-info">
+            <span>🟩 4블록</span><span>🔵 4목표</span>
+          </div>
+          <div class="difficulty">
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+            <div class="dot on"></div>
+          </div>
+        </a>
       </div>
-      <div class="difficulty">
-        <div class="dot on"></div><div class="dot on"></div>
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      </div>
-    </a>
 
-    <a href="stages/stage2.html" class="stage-card">
-      <div class="cleared-badge" data-stage="2"></div>
-      <div class="stage-card-num">STAGE 02</div>
-      <div class="stage-card-name">LABYRINTH</div>
-      <div class="stage-card-info">
-        <span>🟩 10블록</span>
-        <span>🔵 10목표</span>
+      <div class="how-to-play">
+        <summary>게임 방법</summary>
+        <ol>
+          <li>
+            <span class="c-red">빨간 공</span>을 방향키 / WASD / D패드 /
+            스와이프로 이동.
+          </li>
+          <li>공이 <span class="c-green">초록 블록</span>에 닿으면 밀린다.</li>
+          <li>
+            모든 <span class="c-green">초록 블록</span>을
+            <span class="c-blue">파란 칸</span> 위에 올리면 클리어!
+          </li>
+          <li>
+            <span class="c-white">흰 벽</span>은 통과 불가. 리셋: <kbd>R</kbd>
+          </li>
+          <li>
+            🖱️ <strong>마우스 드래그</strong>로 3D 시점 회전 · <kbd>V</kbd>로
+            기본 시점 복귀.
+          </li>
+        </ol>
       </div>
-      <div class="difficulty">
-        <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
-        <div class="dot"></div><div class="dot"></div>
-      </div>
-    </a>
-
-    <a href="stages/stage3.html" class="stage-card">
-      <div class="cleared-badge" data-stage="3"></div>
-      <div class="stage-card-num">STAGE 03</div>
-      <div class="stage-card-name">MICRO</div>
-      <div class="stage-card-info">
-        <span>🟩 4블록</span>
-        <span>🔵 4목표</span>
-      </div>
-      <div class="difficulty">
-        <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
-        <div class="dot on"></div><div class="dot"></div>
-      </div>
-    </a>
-
-    <a href="stages/stage4.html" class="stage-card">
-      <div class="cleared-badge" data-stage="4"></div>
-      <div class="stage-card-num">STAGE 04</div>
-      <div class="stage-card-name">CORRIDOR</div>
-      <div class="stage-card-info">
-        <span>🟩 5블록</span>
-        <span>🔵 5목표</span>
-      </div>
-      <div class="difficulty">
-        <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
-        <div class="dot on"></div><div class="dot"></div>
-      </div>
-    </a>
-
-    <a href="stages/stage5.html" class="stage-card">
-      <div class="cleared-badge" data-stage="5"></div>
-      <div class="stage-card-num">STAGE 05</div>
-      <div class="stage-card-name">NEXUS</div>
-      <div class="stage-card-info">
-        <span>🟩 9블록</span>
-        <span>🔵 10목표</span>
-      </div>
-      <div class="difficulty">
-        <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
-        <div class="dot on"></div><div class="dot on"></div>
-      </div>
-    </a>
-
-  </div>
-
-  <!-- How to play -->
-  <details class="instructions" style="width:100%;max-width:700px;margin-bottom:20px;">
-    <summary>게임 방법</summary>
-    <ol>
-      <li><span class="r">빨간 공</span>을 방향키 (또는 화면 D패드, 스와이프)로 움직인다.</li>
-      <li><span class="r">빨간 공</span>이 <span class="g">초록 블록</span>에 닿으면 밀린다.</li>
-      <li>모든 <span class="g">초록 블록</span>을 <span class="b">파란 칸</span> 위에 올려놓으면 클리어!</li>
-      <li><span class="g">초록 블록</span>은 <span class="w">흰 벽</span>이나 다른 블록으로는 이동 불가.</li>
-      <li>키보드: <strong>↑↓←→</strong> 또는 <strong>WASD</strong> / 리셋: <strong>R</strong></li>
-    </ol>
-  </details>
-
-</div>
-
-<script src="js/game.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', loadClearedBadges);
-</script>
-</body>
+    </div>
+    <script>
+      const cleared = JSON.parse(
+        localStorage.getItem("SOKOBAN_cleared") || "[]",
+      );
+      cleared.forEach((id) => {
+        const b = document.querySelector(`.cleared-badge[data-stage="${id}"]`);
+        if (b) b.textContent = "✅";
+      });
+    </script>
+  </body>
 </html>
