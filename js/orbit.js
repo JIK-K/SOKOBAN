@@ -83,8 +83,64 @@ class OrbitController {
       { passive: false },
     );
 
-    /* 터치 이벤트 (기본 유지) */
-    // ... 기존 터치 코드 (생략) ...
+    /* 터치 이벤트 */
+    let initialPinchDistance = null;
+
+    el.addEventListener(
+      "touchstart",
+      (e) => {
+        if (e.touches.length === 1) {
+          // 단일 터치: 회전 시작
+          this._dragging = true;
+          this._lastX = e.touches[0].clientX;
+          this._lastY = e.touches[0].clientY;
+        } else if (e.touches.length === 2) {
+          // 멀티 터치: 핀치 줌 시작 전 거리 계산
+          this._dragging = false; // 줌 할 때는 회전 중단
+          initialPinchDistance = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY,
+          );
+        }
+        if (e.cancelable) e.preventDefault();
+      },
+      { passive: false },
+    );
+
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        if (e.touches.length === 1 && this._dragging) {
+          // 단일 터치 이동: 회전 처리
+          const dx = e.touches[0].clientX - this._lastX;
+          const dy = e.touches[0].clientY - this._lastY;
+          this._rotate(dx, dy);
+          this._lastX = e.touches[0].clientX;
+          this._lastY = e.touches[0].clientY;
+        } else if (e.touches.length === 2 && initialPinchDistance !== null) {
+          // 멀티 터치 이동: 핀치 줌 처리
+          const currentDistance = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY,
+          );
+
+          // 두 손가락 사이의 거리 변화량 계산
+          const delta = initialPinchDistance - currentDistance;
+          const zoomSensitivity = (this.cfg.ZOOM_SENSITIVITY || 0.001) * 2; // 터치는 감도를 조절할 수 있습니다
+          const dR = delta * zoomSensitivity * this._r;
+
+          this._zoom(dR);
+          initialPinchDistance = currentDistance; // 현재 거리를 다음 기준으로 갱신
+        }
+        if (e.cancelable) e.preventDefault();
+      },
+      { passive: false },
+    );
+
+    window.addEventListener("touchend", () => {
+      this._dragging = false;
+      initialPinchDistance = null;
+    });
 
     el.style.cursor = "grab";
   }

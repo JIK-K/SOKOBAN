@@ -2,7 +2,6 @@
    game3d.js  —  SOKOBAN3D 메인 게임 클래스
    의존: constants.js / scene.js / orbit.js / input.js
    ══════════════════════════════════════════════ */
-
 class SOKOBAN3D {
   constructor({
     rows,
